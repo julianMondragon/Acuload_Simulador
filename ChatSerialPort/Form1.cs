@@ -24,6 +24,7 @@ namespace ChatSerialPort
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            
             LogMessage += InputTxt.Text;
             LogMessage += "\n\r";
             TxtPantalla.Text = LogMessage;

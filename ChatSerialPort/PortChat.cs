@@ -47,7 +47,7 @@ namespace ChatSerialPort
 
             while (_continue)
             {
-                message = Console.ReadLine();
+                message = "Hola Fredy, saludos desde el puerto serial COM5";
 
                 if (stringComparer.Equals("quit", message))
                 {
@@ -96,7 +96,8 @@ namespace ChatSerialPort
 
             if (portName == "" || !(portName.ToLower()).StartsWith("com"))
             {
-                portName = defaultPortName;
+                //portName = defaultPortName;
+                portName = "COM1";
             }
             Config_de_Puerto += defaultPortName + "\n\r";
             return portName;
@@ -133,7 +134,8 @@ namespace ChatSerialPort
             //parity = Console.ReadLine();
             if (parity == "")
             {
-                parity = defaultPortParity.ToString();
+                //parity = defaultPortParity.ToString();
+                parity = "None";
             }
 
             return (Parity)Enum.Parse(typeof(Parity), parity, true);
