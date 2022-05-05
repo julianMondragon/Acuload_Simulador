@@ -12,21 +12,28 @@ namespace ChatSerialPort
 {
     public partial class Form1 : Form
     {
+        public string LogMessage = "";
         public Form1()
         {
             InitializeComponent();
+            LogMessage = PortChat.Config_de_Puerto;
+            TxtPantalla.Text = LogMessage;
         }
 
-        public string LogMessage = "";
+        
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-           TxtPantalla.Text += InputTxt.Text;
+            LogMessage += InputTxt.Text;
+            LogMessage += "\n\r";
+            TxtPantalla.Text = LogMessage;
+            InputTxt.Text = "";
         }
 
         private void TxtPantalla_TextChanged(object sender, EventArgs e)
         {
-            TxtPantalla.Text = LogMessage;
+            //TxtPantalla.Text = LogMessage;
+            //LogMessage += "\n\r";
         }
 
         private void InputTxt_TextChanged(object sender, EventArgs e)
