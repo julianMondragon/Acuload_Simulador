@@ -24,7 +24,7 @@ namespace ChatSerialPort
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            
+            PortChat._serialPort.WriteLine(InputTxt.Text);
             LogMessage += InputTxt.Text;
             LogMessage += "\n\r";
             TxtPantalla.Text = LogMessage;
@@ -40,6 +40,11 @@ namespace ChatSerialPort
         private void InputTxt_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void BtnRead_Click(object sender, EventArgs e)
+        {
+            TxtPantalla.Text = PortChat.Config_de_Puerto;
         }
     }
 }

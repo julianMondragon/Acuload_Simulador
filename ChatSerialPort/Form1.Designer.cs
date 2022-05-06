@@ -32,6 +32,7 @@
             this.TxtPantalla = new System.Windows.Forms.TextBox();
             this.InputTxt = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();
+            this.BtnRead = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Titulo
@@ -71,11 +72,22 @@
             this.btnEnter.UseVisualStyleBackColor = true;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
+            // BtnRead
+            // 
+            this.BtnRead.Location = new System.Drawing.Point(622, 293);
+            this.BtnRead.Name = "BtnRead";
+            this.BtnRead.Size = new System.Drawing.Size(75, 23);
+            this.BtnRead.TabIndex = 4;
+            this.BtnRead.Text = "Leer";
+            this.BtnRead.UseVisualStyleBackColor = true;
+            this.BtnRead.Click += new System.EventHandler(this.BtnRead_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnRead);
             this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.InputTxt);
             this.Controls.Add(this.TxtPantalla);
@@ -93,6 +105,7 @@
         private System.Windows.Forms.TextBox TxtPantalla;
         private System.Windows.Forms.TextBox InputTxt;
         private System.Windows.Forms.Button btnEnter;
+        private System.Windows.Forms.Button BtnRead;
     }
 }
 

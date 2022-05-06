@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ChatSerialPort
 {
@@ -9,7 +10,7 @@ namespace ChatSerialPort
     public  class PortChat
     {
         static bool _continue;
-        static SerialPort _serialPort;
+        public static SerialPort _serialPort;
         public static string Config_de_Puerto = ""; 
 
         public PortChat()
@@ -47,17 +48,18 @@ namespace ChatSerialPort
 
             while (_continue)
             {
-                message = "Hola Fredy, saludos desde el puerto serial COM5";
+                message = "Hola Fredy";
 
                 if (stringComparer.Equals("quit", message))
                 {
                     _continue = false;
                 }
-                else
-                {
-                    _serialPort.WriteLine(
-                        String.Format("<{0}>: {1}", name, message));
-                }
+                //else
+                //{
+                //    _serialPort.WriteLine(
+                //        String.Format("<{0}>: {1}", name, message));
+                //    Task.Delay(1000).Wait();
+                //}
             }
 
             readThread.Join();
@@ -70,6 +72,7 @@ namespace ChatSerialPort
             {
                 try
                 {
+                    Config_de_Puerto += _serialPort.ReadLine(); // = "\n\r";
                     string message = _serialPort.ReadLine();
                     Console.WriteLine(message);
                 }
@@ -96,8 +99,8 @@ namespace ChatSerialPort
 
             if (portName == "" || !(portName.ToLower()).StartsWith("com"))
             {
-                //portName = defaultPortName;
-                portName = "COM1";
+                portName = "COM5";
+               
             }
             Config_de_Puerto += defaultPortName + "\n\r";
             return portName;
