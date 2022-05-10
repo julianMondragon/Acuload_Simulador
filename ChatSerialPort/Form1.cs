@@ -16,35 +16,28 @@ namespace ChatSerialPort
         public Form1()
         {
             InitializeComponent();
-            LogMessage = PortChat.Config_de_Puerto;
-            TxtPantalla.Text = LogMessage;
+            //LogMessage = PortChat.Config_de_Puerto;
+            //TxtPantalla.Text = LogMessage;
         }
-
-        
+               
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            PortChat.Open();
             PortChat._serialPort.WriteLine(InputTxt.Text);
-            LogMessage += InputTxt.Text;
-            LogMessage += "\n\r";
-            TxtPantalla.Text = LogMessage;
+            LogMessage += "\n\r" + InputTxt.Text;
+            TxtPantallaOutput.Text = LogMessage;
             InputTxt.Text = "";
         }
-
-        private void TxtPantalla_TextChanged(object sender, EventArgs e)
-        {
-            //TxtPantalla.Text = LogMessage;
-            //LogMessage += "\n\r";
-        }
-
-        private void InputTxt_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void BtnRead_Click(object sender, EventArgs e)
         {
-            TxtPantalla.Text = PortChat.Config_de_Puerto;
+
+            PortChat.Read();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("\n\r" + PortChat.Mensajes_Leidos);
+            TxtPantalla.Text += sb;
+            sb = null;
         }
     }
 }

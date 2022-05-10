@@ -11,14 +11,17 @@ namespace ChatSerialPort
     {
         static bool _continue;
         public static SerialPort _serialPort;
-        public static string Config_de_Puerto = ""; 
+        public static string Config_de_Puerto = "";
+        public static string Mensajes_Escritos = "";
+        public static string Mensajes_Leidos = "";
+
 
         public PortChat()
         {
-            string name = "Julian Mondragon";
-            string message;
+            //string name = "Julian Mondragon";
+            //string message;
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            Thread readThread = new Thread(Read);
+            //Thread readThread = new Thread(Read);
 
             // Create a new SerialPort object with default settings.
             _serialPort = new SerialPort();
@@ -37,47 +40,54 @@ namespace ChatSerialPort
 
             _serialPort.Open();
             _continue = true;
-            readThread.Start();
+            //readThread.Start();
 
             //Console.Write("Name: ");
             //name = Console.ReadLine();
             //Console.WriteLine("Type QUIT to exit");
-            Config_de_Puerto += "************************ \n\r";
-            Config_de_Puerto += "Type QUIT to exit \n\r";
+            //Mensajes_Escritos += "************************ \n\r";
+            //Mensajes_Escritos += "Type QUIT to exit \n\r";
 
 
-            while (_continue)
-            {
-                message = "Hola Fredy";
-
-                if (stringComparer.Equals("quit", message))
-                {
-                    _continue = false;
-                }
-                //else
-                //{
-                //    _serialPort.WriteLine(
-                //        String.Format("<{0}>: {1}", name, message));
-                //    Task.Delay(1000).Wait();
-                //}
-            }
-
-            readThread.Join();
-            _serialPort.Close();
+            //while (_continue)
+            //{
+            //    message = "";
+            //    if (stringComparer.Equals("quit", message))
+            //    {
+            //        _continue = false;
+            //    }
+            //    else
+            //    {
+            //        _serialPort.WriteLine(
+            //            String.Format("<{0}>: {1}", name, message));
+            //        Task.Delay(1000).Wait();
+            //    }
+            //}
+            //readThread.Join();
+            //_serialPort.Close();
         }
 
         public static void Read()
         {
-            while (_continue)
-            {
+            //while (_continue)
+            //{
                 try
                 {
-                    Config_de_Puerto += _serialPort.ReadLine(); // = "\n\r";
-                    string message = _serialPort.ReadLine();
-                    Console.WriteLine(message);
+                    Mensajes_Leidos += _serialPort.ReadLine();
+                   
                 }
                 catch (TimeoutException) { }
-            }
+                _serialPort.Dispose();
+                _serialPort.Close();
+            //}
+        }
+
+        public static void Open()
+        {
+            
+            if(!_serialPort.IsOpen)
+                _serialPort.Open();
+            
         }
 
         // Display Port values and prompt user to enter a port.

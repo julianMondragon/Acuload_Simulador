@@ -33,6 +33,10 @@
             this.InputTxt = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();
             this.BtnRead = new System.Windows.Forms.Button();
+            this.TxtPantallaOutput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Titulo
@@ -47,12 +51,12 @@
             // 
             // TxtPantalla
             // 
-            this.TxtPantalla.Location = new System.Drawing.Point(109, 66);
+            this.TxtPantalla.Location = new System.Drawing.Point(416, 66);
             this.TxtPantalla.Multiline = true;
             this.TxtPantalla.Name = "TxtPantalla";
-            this.TxtPantalla.Size = new System.Drawing.Size(588, 221);
+            this.TxtPantalla.Size = new System.Drawing.Size(281, 221);
             this.TxtPantalla.TabIndex = 1;
-            this.TxtPantalla.TextChanged += new System.EventHandler(this.TxtPantalla_TextChanged);
+            //this.TxtPantalla.TextChanged += new System.EventHandler(this.TxtPantalla_TextChanged);
             // 
             // InputTxt
             // 
@@ -60,7 +64,6 @@
             this.InputTxt.Name = "InputTxt";
             this.InputTxt.Size = new System.Drawing.Size(588, 20);
             this.InputTxt.TabIndex = 2;
-            this.InputTxt.TextChanged += new System.EventHandler(this.InputTxt_TextChanged);
             // 
             // btnEnter
             // 
@@ -82,11 +85,50 @@
             this.BtnRead.UseVisualStyleBackColor = true;
             this.BtnRead.Click += new System.EventHandler(this.BtnRead_Click);
             // 
+            // TxtPantallaOutput
+            // 
+            this.TxtPantallaOutput.Location = new System.Drawing.Point(109, 66);
+            this.TxtPantallaOutput.Multiline = true;
+            this.TxtPantallaOutput.Name = "TxtPantallaOutput";
+            this.TxtPantallaOutput.Size = new System.Drawing.Size(281, 221);
+            this.TxtPantallaOutput.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(106, 50);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Salida del Puerto";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(600, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Entrada del Puerto";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(106, 311);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(141, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Datos a enviar por el puerto ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TxtPantallaOutput);
             this.Controls.Add(this.BtnRead);
             this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.InputTxt);
@@ -106,6 +148,10 @@
         private System.Windows.Forms.TextBox InputTxt;
         private System.Windows.Forms.Button btnEnter;
         private System.Windows.Forms.Button BtnRead;
+        private System.Windows.Forms.TextBox TxtPantallaOutput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
