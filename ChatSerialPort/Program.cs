@@ -17,15 +17,10 @@ namespace ChatSerialPort
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Thread ConfigPort = new Thread(RunConfig);
-            ConfigPort.Start();
             Application.Run(new Form1());
         }
 
-        public static void RunConfig()
-        {
-            PortChat Configport = new PortChat();
-        }
+       
     }
 }
 

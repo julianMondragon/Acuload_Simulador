@@ -11,37 +11,45 @@ namespace ChatSerialPort
     {
         static bool _continue;
         public static SerialPort _serialPort;
+        public static string NamePort = "";
         public static string Config_de_Puerto = "";
         public static string Mensajes_Escritos = "";
         public static string Mensajes_Leidos = "";
+        public static string statusPort = ""; 
 
 
         public PortChat()
         {
-            //string name = "Julian Mondragon";
-            //string message;
-            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            //Thread readThread = new Thread(Read);
+            try
+            {
+                StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
+                //Thread readThread = new Thread(Read);
+                // Create a new SerialPort object with default settings.
+                _serialPort = new SerialPort();
 
-            // Create a new SerialPort object with default settings.
-            _serialPort = new SerialPort();
+                // Allow the user to set the appropriate properties.
+                _serialPort.PortName = SetPortName(_serialPort.PortName);
+                _serialPort.BaudRate = SetPortBaudRate(_serialPort.BaudRate);
+                _serialPort.Parity = SetPortParity(_serialPort.Parity);
+                _serialPort.DataBits = SetPortDataBits(_serialPort.DataBits);
+                _serialPort.StopBits = SetPortStopBits(_serialPort.StopBits);
+                _serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
 
-            // Allow the user to set the appropriate properties.
-            _serialPort.PortName = SetPortName(_serialPort.PortName);
-            _serialPort.BaudRate = SetPortBaudRate(_serialPort.BaudRate);
-            _serialPort.Parity = SetPortParity(_serialPort.Parity);
-            _serialPort.DataBits = SetPortDataBits(_serialPort.DataBits);
-            _serialPort.StopBits = SetPortStopBits(_serialPort.StopBits);
-            _serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
+                // Set the read/write timeouts
+                _serialPort.ReadTimeout = 500;
+                _serialPort.WriteTimeout = 500;
+                Open();
+                if (_serialPort.IsOpen)
+                    statusPort = "El Puerto fue abierto exitosamente";
+                _continue = true;
+            }
+           catch (Exception ex)
+            {
+                statusPort = ex.Message;
+            }
 
-            // Set the read/write timeouts
-            _serialPort.ReadTimeout = 500;
-            _serialPort.WriteTimeout = 500;
-
-            _serialPort.Open();
-            _continue = true;
+            #region Codigo comentado
             //readThread.Start();
-
             //Console.Write("Name: ");
             //name = Console.ReadLine();
             //Console.WriteLine("Type QUIT to exit");
@@ -65,6 +73,7 @@ namespace ChatSerialPort
             //}
             //readThread.Join();
             //_serialPort.Close();
+            #endregion
         }
 
         public static void Read()
@@ -78,16 +87,39 @@ namespace ChatSerialPort
                 }
                 catch (TimeoutException) { }
                 _serialPort.Dispose();
+                _serialPort.NewLine = "\r\n";
                 _serialPort.Close();
             //}
         }
 
         public static void Open()
         {
+            try
+            {
+                if (_serialPort != null)
+                {
+                    if (!_serialPort.IsOpen)
+                    {
+                        _serialPort.Open();
+                        statusPort = "El Puerto fue abierto exitosamente";
+                    }
+                    else
+                    {
+                        statusPort = "El Puerto fue abierto exitosamente";
+                    }
+                }
+                else
+                {
+                    statusPort = "Debe abrir el puerto antes de escribir datos";
+                }
+            }
+            catch (Exception e)
+            {
+                statusPort = e.Message; 
+            }
+
             
-            if(!_serialPort.IsOpen)
-                _serialPort.Open();
-            
+                       
         }
 
         // Display Port values and prompt user to enter a port.
@@ -96,7 +128,7 @@ namespace ChatSerialPort
             string portName;
 
             //Console.WriteLine("");
-            Config_de_Puerto = "Available Ports: \n\r";
+            //Config_de_Puerto = "Available Ports: \n\r";
             foreach (string s in SerialPort.GetPortNames())
             {
                 Console.WriteLine("   {0}", s);
@@ -109,7 +141,7 @@ namespace ChatSerialPort
 
             if (portName == "" || !(portName.ToLower()).StartsWith("com"))
             {
-                portName = "COM5";
+                portName = NamePort;
                
             }
             Config_de_Puerto += defaultPortName + "\n\r";

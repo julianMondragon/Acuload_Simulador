@@ -7,37 +7,100 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO.Ports;
+using System.Threading;
 
 namespace ChatSerialPort
 {
     public partial class Form1 : Form
     {
         public string LogMessage = "";
+        public static string PortName = "";
         public Form1()
         {
             InitializeComponent();
-            //LogMessage = PortChat.Config_de_Puerto;
-            //TxtPantalla.Text = LogMessage;
         }
                
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            PortChat.Open();
-            PortChat._serialPort.WriteLine(InputTxt.Text);
-            LogMessage += "\n\r" + InputTxt.Text;
-            TxtPantallaOutput.Text = LogMessage;
-            InputTxt.Text = "";
+            try
+            {
+                PortChat.Open();
+                txtStatusPort.Text = PortChat.statusPort;
+                if (PortChat._serialPort != null)
+                {
+                    PortChat._serialPort.WriteLine(InputTxt.Text);
+                    LogMessage += "\n\r" + InputTxt.Text;
+                    TxtPantallaOutput.Text = LogMessage;
+                    InputTxt.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                txtStatusPort.Text = ex.Message;
+            }
+            
+            
         }
        
         private void BtnRead_Click(object sender, EventArgs e)
         {
+            try
+            {
+                PortChat.Read();
+                StringBuilder sb = new StringBuilder();
+                sb.Append("\n\r" + PortChat.Mensajes_Leidos);
+                TxtPantalla.Text = sb.ToString();
+                sb = null;
+            }
+            catch (Exception ex)
+            {
+                txtStatusPort.Text = ex.Message;
+            }
+            
+        }
 
-            PortChat.Read();
-            StringBuilder sb = new StringBuilder();
-            sb.Append("\n\r" + PortChat.Mensajes_Leidos);
-            TxtPantalla.Text += sb;
-            sb = null;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string[] puertos = SerialPort.GetPortNames();
+            comboBoxCOMs.Items.AddRange(puertos);
+        }
+
+        private  void button1_Click(object sender, EventArgs e)
+        {
+            PortName = comboBoxCOMs.Text;
+            Thread ConfigPort =new Thread(RunConfig);
+            ConfigPort.Start();
+            txtStatusPort.Text = PortChat.statusPort;
+
+        }
+        public static void RunConfig()
+        {
+            PortChat.NamePort = PortName;
+            PortChat Configport = new PortChat();
+        }
+
+        private void txtStatusPort_TextChanged(object sender, EventArgs e)
+        {
+            if(txtStatusPort.Text == "")
+            {
+                txtStatusPort.Text = "Puerto Abierto";
+                button1.Enabled = false;
+            }
+            else if( txtStatusPort.Text == "Puerto Abierto") 
+            {
+                button1.Enabled = false;
+            }
+            else if (txtStatusPort.Text == "El Puerto fue abierto exitosamente")
+            {
+                button1.Enabled = false;
+            }
+            else
+            {
+                button1.Enabled=true;
+            }
+            
         }
     }
 }
