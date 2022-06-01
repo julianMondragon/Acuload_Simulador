@@ -36,7 +36,7 @@ namespace ChatSerialPort
                 _serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
 
                 // Set the read/write timeouts
-                _serialPort.ReadTimeout = 500;
+                _serialPort.ReadTimeout = 5000;
                 _serialPort.WriteTimeout = 500;
                 Open();
                 if (_serialPort.IsOpen)
@@ -85,10 +85,13 @@ namespace ChatSerialPort
                     Mensajes_Leidos += _serialPort.ReadLine();
                    
                 }
-                catch (TimeoutException) { }
-                _serialPort.Dispose();
-                _serialPort.NewLine = "\r\n";
-                _serialPort.Close();
+                catch (TimeoutException ex)
+                {
+                    Mensajes_Leidos += ex.Message;
+                }
+                //_serialPort.Dispose();
+                //_serialPort.NewLine = "\r\n";
+                //_serialPort.Close();
             //}
         }
 
