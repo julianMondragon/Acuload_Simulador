@@ -9,7 +9,7 @@ namespace ChatSerialPort
 
     public  class PortChat
     {
-        static bool _continue;
+        
         public static SerialPort _serialPort;
         public static string NamePort = "";
         public static string Config_de_Puerto = "";
@@ -20,10 +20,11 @@ namespace ChatSerialPort
 
         public PortChat()
         {
+            
             try
             {
-                StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-                //Thread readThread = new Thread(Read);
+                //StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
+                
                 // Create a new SerialPort object with default settings.
                 _serialPort = new SerialPort();
 
@@ -36,19 +37,22 @@ namespace ChatSerialPort
                 _serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
 
                 // Set the read/write timeouts
-                _serialPort.ReadTimeout = 5000;
-                _serialPort.WriteTimeout = 500;
+                _serialPort.ReadTimeout = 500;
+                _serialPort.WriteTimeout = 100;
                 Open();
                 if (_serialPort.IsOpen)
                     statusPort = "El Puerto fue abierto exitosamente";
-                _continue = true;
+                
+
             }
-           catch (Exception ex)
+            catch (Exception ex)
             {
                 statusPort = ex.Message;
             }
 
-            #region Codigo comentado
+            
+            
+                #region Codigo comentado
             //readThread.Start();
             //Console.Write("Name: ");
             //name = Console.ReadLine();
@@ -78,22 +82,29 @@ namespace ChatSerialPort
 
         public static void Read()
         {
-            //while (_continue)
-            //{
-                try
-                {
-                    Mensajes_Leidos += _serialPort.ReadLine();
-                   
-                }
-                catch (TimeoutException ex)
-                {
-                    Mensajes_Leidos += ex.Message;
-                }
-                //_serialPort.Dispose();
-                //_serialPort.NewLine = "\r\n";
-                //_serialPort.Close();
-            //}
+            
+            try
+            {
+
+                Mensajes_Leidos += _serialPort.ReadLine();               
+
+            }
+            catch(NullReferenceException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (TimeoutException ex)
+            {
+                //Mensajes_Leidos += ex.Message;
+                Console.WriteLine("In timeoutException "+ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("in Exception" + ex.Message);
+                Mensajes_Leidos += ex.Message;
+            }
         }
+        
 
         public static void Open()
         {

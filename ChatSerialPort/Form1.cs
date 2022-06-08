@@ -16,9 +16,17 @@ namespace ChatSerialPort
     {
         public string LogMessage = "";
         public static string PortName = "";
+        static bool _continue;
+
         public Form1()
         {
+            _continue = true;
             InitializeComponent();
+            Thread readThread = new Thread(delegate ()
+            {
+                Tread();
+            });
+            readThread.Start();
         }
                
 
@@ -26,13 +34,15 @@ namespace ChatSerialPort
         {
             try
             {
+                //0141022190B4
                 PortChat.Open();
                 txtStatusPort.Text = PortChat.statusPort;
                 if (PortChat._serialPort != null)
                 {
-                    PortChat._serialPort.WriteLine(InputTxt.Text);
+                    string x = String.Format("{0:X}", InputTxt.Text);
+                    PortChat._serialPort.WriteLine(x);
                     LogMessage += "\n\r" + InputTxt.Text;
-                    TxtPantallaOutput.Text = LogMessage;
+                    Output.Text = LogMessage;
                     InputTxt.Text = "";
                 }
             }
@@ -40,7 +50,6 @@ namespace ChatSerialPort
             {
                 txtStatusPort.Text = ex.Message;
             }
-            
             
         }
        
@@ -58,7 +67,6 @@ namespace ChatSerialPort
             {
                 txtStatusPort.Text = ex.Message;
             }
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -102,5 +110,35 @@ namespace ChatSerialPort
             }
             
         }
+
+        public void Tread()
+        {
+
+            while (_continue)
+            {
+                Task.Delay(2000).Wait();
+                try
+                {
+                    if(PortChat._serialPort != null)
+                        PortChat.Read();
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("\n\r" + PortChat.Mensajes_Leidos);
+                    if (TxtPantalla.InvokeRequired)
+                    {
+                        TxtPantalla.Invoke(new MethodInvoker(delegate
+                        {
+                            TxtPantalla.Text = sb.ToString();
+                        }));
+                    }
+                    
+                    sb = null;
+                }
+                catch (Exception ex)
+                {
+                    //txtStatusPort.Text = ex.Message;
+                }
+            }
+        }
+
     }
 }

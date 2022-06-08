@@ -32,16 +32,15 @@
             this.TxtPantalla = new System.Windows.Forms.TextBox();
             this.InputTxt = new System.Windows.Forms.TextBox();
             this.btnEnter = new System.Windows.Forms.Button();
-            this.BtnRead = new System.Windows.Forms.Button();
-            this.TxtPantallaOutput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxCOMs = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtStatusPort = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.Output = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,25 +79,6 @@
             this.btnEnter.Text = "Enter";
             this.btnEnter.UseVisualStyleBackColor = true;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
-            // 
-            // BtnRead
-            // 
-            this.BtnRead.Location = new System.Drawing.Point(624, 393);
-            this.BtnRead.Name = "BtnRead";
-            this.BtnRead.Size = new System.Drawing.Size(75, 23);
-            this.BtnRead.TabIndex = 4;
-            this.BtnRead.Text = "Leer";
-            this.BtnRead.UseVisualStyleBackColor = true;
-            this.BtnRead.Click += new System.EventHandler(this.BtnRead_Click);
-            // 
-            // TxtPantallaOutput
-            // 
-            this.TxtPantallaOutput.Location = new System.Drawing.Point(111, 166);
-            this.TxtPantallaOutput.Multiline = true;
-            this.TxtPantallaOutput.Name = "TxtPantallaOutput";
-            this.TxtPantallaOutput.ReadOnly = true;
-            this.TxtPantallaOutput.Size = new System.Drawing.Size(281, 221);
-            this.TxtPantallaOutput.TabIndex = 5;
             // 
             // label1
             // 
@@ -157,16 +137,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Open Port";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(63, 67);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Open";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // txtStatusPort
             // 
             this.txtStatusPort.Location = new System.Drawing.Point(190, 23);
@@ -178,17 +148,35 @@
             this.txtStatusPort.Text = "Puerto cerrado";
             this.txtStatusPort.TextChanged += new System.EventHandler(this.txtStatusPort_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(63, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Open";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Output
+            // 
+            this.Output.Location = new System.Drawing.Point(111, 166);
+            this.Output.Multiline = true;
+            this.Output.Name = "Output";
+            this.Output.ReadOnly = true;
+            this.Output.Size = new System.Drawing.Size(281, 221);
+            this.Output.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 519);
+            this.Controls.Add(this.Output);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.TxtPantallaOutput);
-            this.Controls.Add(this.BtnRead);
             this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.InputTxt);
             this.Controls.Add(this.TxtPantalla);
@@ -209,8 +197,6 @@
         private System.Windows.Forms.TextBox TxtPantalla;
         private System.Windows.Forms.TextBox InputTxt;
         private System.Windows.Forms.Button btnEnter;
-        private System.Windows.Forms.Button BtnRead;
-        private System.Windows.Forms.TextBox TxtPantallaOutput;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -219,6 +205,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtStatusPort;
+        private System.Windows.Forms.TextBox Output;
     }
 }
 
