@@ -136,6 +136,13 @@ namespace ChatSerialPort
                 catch (Exception ex)
                 {
                     //txtStatusPort.Text = ex.Message;
+                    if (txtStatusPort.InvokeRequired)
+                    {
+                        txtStatusPort.Invoke(new MethodInvoker(delegate
+                        {
+                            txtStatusPort.Text = ex.Message;
+                        }));
+                    }
                 }
             }
         }
