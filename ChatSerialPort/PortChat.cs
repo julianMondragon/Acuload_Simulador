@@ -82,14 +82,19 @@ namespace ChatSerialPort
 
         public static void Read()
         {
-            
+
             try
             {
+                
+                byte[] bytes = new byte[64];
+                var longitud = _serialPort.Read(bytes, 0, 64);
+                string respuesta = BitConverter.ToString(bytes, 0 , longitud);
+                respuesta = respuesta.Replace("-", "");
+                Mensajes_Leidos += respuesta;
 
-                Mensajes_Leidos += _serialPort.ReadLine();               
 
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
                 Console.WriteLine(ex.Message);
             }

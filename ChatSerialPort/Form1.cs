@@ -39,8 +39,8 @@ namespace ChatSerialPort
                 txtStatusPort.Text = PortChat.statusPort;
                 if (PortChat._serialPort != null)
                 {
-                    string x = String.Format("{0:X}", InputTxt.Text);
-                    PortChat._serialPort.WriteLine(x);
+                    byte[] Bytes = FromHexStringToArrBytes(InputTxt.Text);                  
+                    PortChat._serialPort.Write( Bytes, 0, Bytes.Length);
                     LogMessage += "\n\r" + InputTxt.Text;
                     Output.Text = LogMessage;
                     InputTxt.Text = "";
@@ -116,7 +116,7 @@ namespace ChatSerialPort
 
             while (_continue)
             {
-                Task.Delay(2000).Wait();
+                Task.Delay(1000).Wait();
                 try
                 {
                     if(PortChat._serialPort != null)
@@ -145,6 +145,16 @@ namespace ChatSerialPort
                     }
                 }
             }
+        }
+        public static byte[] FromHexStringToArrBytes(string hexString)
+        {
+            var bytes = new byte[hexString.Length / 2];
+            for (var i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
+            }
+
+            return bytes; 
         }
 
     }
