@@ -36,9 +36,7 @@ namespace ChatSerialPort
                 host = Dns.GetHostByName(IP);
                 address = host.AddressList[0];
                 endPoint = new IPEndPoint(address, port);
-
                 s_Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
                 Open();
 
             }
@@ -53,7 +51,6 @@ namespace ChatSerialPort
         public static void Send(string mensaje)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(mensaje);
-
             s_Client.Send(buffer);
             Mensajes_Escritos = "Mensaje enviado";
         }
