@@ -50,9 +50,9 @@
             this.Titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Titulo.Location = new System.Drawing.Point(325, 9);
             this.Titulo.Name = "Titulo";
-            this.Titulo.Size = new System.Drawing.Size(166, 29);
+            this.Titulo.Size = new System.Drawing.Size(167, 29);
             this.Titulo.TabIndex = 0;
-            this.Titulo.Text = "Puerto Serial ";
+            this.Titulo.Text = "Accuload III S";
             // 
             // TxtPantalla
             // 
@@ -112,9 +112,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(14, 23);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 13);
+            this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Available Ports";
+            this.label4.Text = "Direccion IP";
             // 
             // comboBoxCOMs
             // 
@@ -135,7 +135,7 @@
             this.groupBox1.Size = new System.Drawing.Size(334, 100);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Open Port";
+            this.groupBox1.Text = "Socket";
             // 
             // txtStatusPort
             // 

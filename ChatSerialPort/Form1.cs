@@ -15,18 +15,18 @@ namespace ChatSerialPort
     public partial class Form1 : Form
     {
         public string LogMessage = "";
-        public static string PortName = "";
+        public static string Adress = "";
         static bool _continue;
 
         public Form1()
         {
             _continue = true;
             InitializeComponent();
-            Thread readThread = new Thread(delegate ()
-            {
-                Tread();
-            });
-            readThread.Start();
+        //    Thread readThread = new Thread(delegate ()
+        //    {
+        //        Tread();
+        //    });
+        //    readThread.Start();
         }
                
 
@@ -34,17 +34,18 @@ namespace ChatSerialPort
         {
             try
             {
+                PortChat.Send(InputTxt.Text);
                 //0141022190B4
-                PortChat.Open();
-                txtStatusPort.Text = PortChat.statusPort;
-                if (PortChat._serialPort != null)
-                {
-                    byte[] Bytes = FromHexStringToArrBytes(InputTxt.Text);                  
-                    PortChat._serialPort.Write( Bytes, 0, Bytes.Length);
-                    LogMessage += "\n\r" + InputTxt.Text;
-                    Output.Text = LogMessage;
-                    InputTxt.Text = "";
-                }
+                //PortChat.Open();
+                //txtStatusPort.Text = PortChat.statusPort;
+                //if (PortChat._serialPort != null)
+                //{
+                //    byte[] Bytes = FromHexStringToArrBytes(InputTxt.Text);                  
+                //    PortChat._serialPort.Write( Bytes, 0, Bytes.Length);
+                //    LogMessage += "\n\r" + InputTxt.Text;
+                //    Output.Text = LogMessage;
+                //    InputTxt.Text = "";
+                //}
             }
             catch (Exception ex)
             {
@@ -75,18 +76,24 @@ namespace ChatSerialPort
             comboBoxCOMs.Items.AddRange(puertos);
         }
 
+        /// <summary>
+        /// Boton Open 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private  void button1_Click(object sender, EventArgs e)
         {
-            PortName = comboBoxCOMs.Text;
-            Thread ConfigPort =new Thread(RunConfig);
-            ConfigPort.Start();
+            Adress = comboBoxCOMs.Text;
+            PortChat socket = new PortChat(Adress, 11000);
+            //Thread ConfigPort =new Thread(RunConfig);
+            //ConfigPort.Start();
             txtStatusPort.Text = PortChat.statusPort;
 
         }
         public static void RunConfig()
         {
-            PortChat.NamePort = PortName;
-            PortChat Configport = new PortChat();
+            //PortChat.NamePort = PortName;
+           // PortChat Configport = new PortChat();
         }
 
         private void txtStatusPort_TextChanged(object sender, EventArgs e)
@@ -119,8 +126,8 @@ namespace ChatSerialPort
                 Task.Delay(1000).Wait();
                 try
                 {
-                    if(PortChat._serialPort != null)
-                        PortChat.Read();
+                    //if(PortChat._serialPort != null)
+                    //    PortChat.Read();
                     StringBuilder sb = new StringBuilder();
                     sb.Append("\n\r" + PortChat.Mensajes_Leidos);
                     if (TxtPantalla.InvokeRequired)
