@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using System.Net;
+using System.Net.Sockets;
 
 namespace ChatSerialPort
 {
@@ -72,8 +74,41 @@ namespace ChatSerialPort
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string[] puertos = SerialPort.GetPortNames();
-            comboBoxCOMs.Items.AddRange(puertos);
+            try
+            {
+                if (Dns.GetHostEntry(Dns.GetHostName()) != null)
+                {
+                    
+                    int count = 0;
+                    foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                    {                        
+                        if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            count++;
+                        }
+                    }
+                    string[] puertos = new string[count];
+                    count = 0;
+                    foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                    {
+                        if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                           
+                            puertos[count] = ip.ToString();
+                            count++;
+                        }
+                    }
+                    comboBoxCOMs.Items.AddRange(puertos);
+                }
+                else
+                {
+                    comboBoxCOMs.Items.Add("Not found");
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         /// <summary>
